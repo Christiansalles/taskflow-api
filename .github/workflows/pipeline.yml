@@ -1,0 +1,35 @@
+name: TaskFlow API Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Placeholder
+        run: echo "Test job - em construção"
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Placeholder
+        run: echo "Build job - em construção"
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [test, build]
+    steps:
+      - name: Placeholder
+        run: echo "Deploy job - em construção"
+
+  notify:
+    runs-on: ubuntu-latest
+    needs: [deploy]
+    if: always()
+    steps:
+      - name: Placeholder
+        run: echo "Notify job - em construção"
