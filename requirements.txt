@@ -1,0 +1,16 @@
+# API
+fastapi==0.115.0
+uvicorn==0.30.6
+pydantic==2.8.2
+
+# Testes
+pytest==8.3.2
+pytest-cov==5.0.0
+pytest-html==4.1.1
+
+# Build
+build==1.2.1
+wheel==0.44.0
+
+# Notificação
+secure-smtplib==0.1.1

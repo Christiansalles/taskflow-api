@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pycache
+
+# Ambientes virtuais
+.venv/
+venv/
+env/
+ENV/
+
+# Dependências instaladas
+*.egg-info/
+dist/
+build/
+*.whl
+*.egg
+
+# Testes e cobertura
+.coverage
+htmlcov/
+.pytest_cache/
+test-report/
+coverage.xml
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Variáveis de ambiente
+.env
+.env.*
+!.env.example
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# GitHub Actions artifacts (local)
+artifacts/
