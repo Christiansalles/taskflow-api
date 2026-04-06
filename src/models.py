@@ -1,4 +1,5 @@
 from enum import Enum
+
 from typing import Optional
 
 from pydantic import BaseModel, field_validator
@@ -67,3 +68,19 @@ class TaskUpdate(BaseModel):
         if len(stripped) > 100:
             raise ValueError("title must have at most 100 characters")
         return stripped
+
+
+# ---------------------------------------------------------------------------
+# Custom Exceptions
+# ---------------------------------------------------------------------------
+
+class TaskNotFoundException(Exception):
+    def __init__(self, message: str = "Task not found") -> None:
+        super().__init__(message)
+        self.message = message
+
+
+class InvalidStatusTransitionException(Exception):
+    def __init__(self, message: str = "Invalid status transition") -> None:
+        super().__init__(message)
+        self.message = message
