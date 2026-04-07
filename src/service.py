@@ -1,4 +1,4 @@
-from .models import Status, Task, TaskCreate, TaskUpdate, TaskNotFoundException
+from .models import Status, Task, TaskCreate, TaskUpdate, TaskNotFoundException, InvalidStatusTransitionException
 from .repository import TaskRepository
 
 
@@ -54,3 +54,16 @@ class TaskService:
         self.get_task(task_id)
         self._repository.delete(task_id)
         return True
+
+    def complete_task(self, task_id: int) -> Task:
+        """Mark a task as completed.
+        
+        Raises:
+            InvalidStatusTransitionException: If the task is already DONE.
+        """
+        task = self.get_task(task_id)
+        if task.status == Status.DONE:
+            raise InvalidStatusTransitionException()
+        
+        task.status = Status.DONE
+        return self._repository.update(task)
