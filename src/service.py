@@ -9,10 +9,17 @@ class TaskService:
         self._repository = repository
 
     def create_task(self, data: TaskCreate) -> Task:
+        """Create a new task and persist it with PENDING status."""
+        
+        stripped_title = data.title.strip()
+        if not stripped_title:
+            raise ValueError("O título não pode ser vazio ou conter apenas espaços em branco")
+        if len(stripped_title) > 100:
+            raise ValueError("O título deve ter no máximo 100 caracteres")
 
         task = Task(
             id=self._repository.generate_id(),
-            title=data.title,
+            title=stripped_title,
             description=data.description,
             priority=data.priority,
             status=Status.PENDING,
@@ -56,11 +63,8 @@ class TaskService:
         return True
 
     def complete_task(self, task_id: int) -> Task:
-        """Mark a task as completed.
-        
-        Raises:
-            InvalidStatusTransitionException: If the task is already DONE.
-        """
+        """Mark a task as completed."""
+    
         task = self.get_task(task_id)
         if task.status == Status.DONE:
             raise InvalidStatusTransitionException()
