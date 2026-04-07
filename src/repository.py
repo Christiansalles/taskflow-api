@@ -1,4 +1,4 @@
-from .models import Task
+from .models import Status, Task
 
 
 class TaskRepository:
@@ -38,3 +38,7 @@ class TaskRepository:
             del self._tasks[task_id]  
             return True
         return False
+
+    def find_by_status(self, status: Status) -> list[Task]:
+        """Return all tasks matching the given status."""
+        return [task for task in self._tasks.values() if task.status == status]
