@@ -1,7 +1,5 @@
 from enum import Enum
-
 from typing import Optional
-
 from pydantic import BaseModel, field_validator
 
 
@@ -17,6 +15,23 @@ class Status(str, Enum):
     DONE = "DONE"
 
 
+# ---------------------------------------------------------------------------
+# Title validation
+# ---------------------------------------------------------------------------
+
+def _validate_title(value: str) -> str:
+
+    stripped = value.strip()
+    if not stripped:
+        raise ValueError("O título não pode ser vazio ou conter apenas espaços em branco")
+    if len(stripped) > 100:
+        raise ValueError("O título deve ter no máximo 100 caracteres")
+    return stripped
+
+# ---------------------------------------------------------------------------
+# Models
+# ---------------------------------------------------------------------------
+
 class Task(BaseModel):
     id: int
     title: str
@@ -27,12 +42,7 @@ class Task(BaseModel):
     @field_validator("title")
     @classmethod
     def validate_title(cls, value: str) -> str:
-        stripped = value.strip()
-        if not stripped:
-            raise ValueError("title cannot be empty or whitespace only")
-        if len(stripped) > 100:
-            raise ValueError("title must have at most 100 characters")
-        return stripped
+        return _validate_title(value)
 
 
 class TaskCreate(BaseModel):
@@ -43,12 +53,7 @@ class TaskCreate(BaseModel):
     @field_validator("title")
     @classmethod
     def validate_title(cls, value: str) -> str:
-        stripped = value.strip()
-        if not stripped:
-            raise ValueError("title cannot be empty or whitespace only")
-        if len(stripped) > 100:
-            raise ValueError("title must have at most 100 characters")
-        return stripped
+        return _validate_title(value)
 
 
 class TaskUpdate(BaseModel):
@@ -62,12 +67,7 @@ class TaskUpdate(BaseModel):
     def validate_title(cls, value: Optional[str]) -> Optional[str]:
         if value is None:
             return value
-        stripped = value.strip()
-        if not stripped:
-            raise ValueError("title cannot be empty or whitespace only")
-        if len(stripped) > 100:
-            raise ValueError("title must have at most 100 characters")
-        return stripped
+        return _validate_title(value)
 
 
 # ---------------------------------------------------------------------------
