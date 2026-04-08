@@ -47,6 +47,8 @@ jobs:
 
   # ─────────────────────────────────────────
   # JOB 2 — BUILD (paralelo com test)
+  # Gera pacote wheel via python -m build e
+  # faz upload do dist/ como artifact.
   # ─────────────────────────────────────────
   build:
     name: Build Package
