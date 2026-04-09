@@ -73,3 +73,8 @@ def update_task(task_id: int, data: TaskUpdate):
 @app.delete("/tasks/{task_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_task(task_id: int):
     service.delete_task(task_id)
+
+
+@app.patch("/tasks/{task_id}/complete", response_model=Task)
+def complete_task(task_id: int):
+    return service.complete_task(task_id)
