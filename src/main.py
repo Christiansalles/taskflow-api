@@ -47,6 +47,15 @@ async def invalid_status_transition_handler(request: Request, exc: InvalidStatus
 # Endpoints CRUD
 # ---------------------------------------------------------------------------
 
+@app.get("/")
+def health_check():
+    return {
+        "name": "TaskFlow API",
+        "version": "1.0.0",
+        "status": "running",
+    }
+
+
 @app.post("/tasks", status_code=status.HTTP_201_CREATED, response_model=Task)
 def create_task(data: TaskCreate):
     try:
